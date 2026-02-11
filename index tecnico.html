@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Índice de Cursos - Unicesumar</title>
+
+<style>
+
+/* ===== ANIMAÇÃO DE ENTRADA DO SITE ===== */
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background: linear-gradient(135deg,#0b2d5c,#0f4aa1);
+    font-family: Arial, Helvetica, sans-serif;
+    animation: entradaSite 0.8s ease;
+}
+
+@keyframes entradaSite{
+    from{
+        opacity:0;
+        transform: scale(0.95);
+    }
+    to{
+        opacity:1;
+        transform: scale(1);
+    }
+}
+
+/* ===== CONTAINER ===== */
+.container{
+    text-align:center;
+    background: rgba(255,255,255,0.08);
+    padding:40px;
+    border-radius:20px;
+    box-shadow:0 0 25px rgba(0,0,0,0.4);
+    width:90%;
+    max-width:500px;
+}
+
+/* ===== LOGO ===== */
+.logo{
+    width:160px;
+    margin-bottom:20px;
+}
+
+/* ===== INPUT ===== */
+input{
+    width:100%;
+    padding:18px;
+    font-size:20px;
+    border:none;
+    border-radius:12px;
+    outline:none;
+    text-align:center;
+}
+
+/* ===== RESULTADO ===== */
+#resultado{
+    margin-top:25px;
+    font-size:26px;
+    color:#ffffff;
+    min-height:35px;
+}
+
+/* ===== CRÉDITO ===== */
+.credito{
+    position: fixed;
+    bottom: 6px;
+    right: 10px;
+    font-size: 9px;
+    opacity: 0.25;
+    color: #ffffff;
+    pointer-events: none;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <img src="tata.png" class="logo">
+    <input type="text" id="busca" placeholder="Digite o código do curso...">
+    <div id="resultado"></div>
+</div>
+
+<div class="credito">Desenvolvido por Fabricio Benigno</div>
+
+<script>
+
+/* ===== BASE DE CURSOS ===== */
+const cursos = {
+    "ETEC_AGRO":"Agronegócios",
+    "ETEC_COGRA":"Computação Gráfica",
+    "ETEC_CCONT":"Contabilidade",
+    "ETEC_COOP":"Cooperativismo",
+    "ETEC_IDOSO":"Cuidados de Idosos",
+    "ETEC_DESIS":"Desenvolvimento de Sistemas",
+    "ETEC_ENFER":"Enfermagem",
+    "ETEC_INFO":"Informática para Internet",
+    "ETEC_PODOL":"Podologia",
+    "ETEC_RADIO":"Radiologia",
+    "ETEC_RH":"Recursos Humanos",
+    "ETEC_SECES":"Secretaria Escolar",
+    "ETEC_SEGUR":"Segurança do Trabalho",
+    "ETEC_SEJUR":"Serviços Jurídicos"
+};
+
+/* ===== BUSCA EXATA APÓS "_" ===== */
+const input = document.getElementById("busca");
+const resultado = document.getElementById("resultado");
+
+input.addEventListener("input", function () {
+    const valor = this.value.toUpperCase().trim();
+    resultado.textContent = "";
+
+    if (valor === "") return;
+
+    for (const codigo in cursos) {
+        const parteDepoisUnderline = codigo.split("_")[1];
+
+        if (parteDepoisUnderline === valor) {
+            resultado.textContent = cursos[codigo];
+            return;
+        }
+    }
+});
+
+</script>
+
+</body>
+</html>
