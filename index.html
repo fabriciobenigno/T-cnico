@@ -6,7 +6,7 @@
 
 <style>
 
-/* ===== ANIMAÇÃO DE ENTRADA DO SITE ===== */
+/* ===== ANIMAÇÃO DE ENTRADA ===== */
 body{
     margin:0;
     height:100vh;
@@ -19,14 +19,8 @@ body{
 }
 
 @keyframes entradaSite{
-    from{
-        opacity:0;
-        transform: scale(0.95);
-    }
-    to{
-        opacity:1;
-        transform: scale(1);
-    }
+    from{opacity:0; transform:scale(0.95);}
+    to{opacity:1; transform:scale(1);}
 }
 
 /* ===== CONTAINER ===== */
@@ -55,14 +49,16 @@ input{
     border-radius:12px;
     outline:none;
     text-align:center;
+    text-transform:uppercase;
 }
 
 /* ===== RESULTADO ===== */
 #resultado{
     margin-top:25px;
-    font-size:26px;
+    font-size:24px;
     color:#ffffff;
     min-height:35px;
+    font-weight:bold;
 }
 
 /* ===== CRÉDITO ===== */
@@ -83,7 +79,7 @@ input{
 
 <div class="container">
     <img src="tata.png" class="logo">
-    <input type="text" id="busca" placeholder="Digite o código do curso...">
+    <input type="text" id="busca" placeholder="Digite o código COMPLETO do curso">
     <div id="resultado"></div>
 </div>
 
@@ -91,9 +87,18 @@ input{
 
 <script>
 
-/* ===== BASE DE CURSOS ===== */
-const cursos = {
-    "ETEC_AGRO":"Agronegócios",
+/* ===================================================
+   ===== ÁREA PARA VOCÊ ADICIONAR TODOS OS CURSOS =====
+
+   Sempre seguir este padrão:
+
+   "CODIGO_EXATO":"Nome do Curso",
+
+   ⚠️ Não esquecer vírgula no final
+   ⚠️ O último item NÃO pode ter vírgula
+=================================================== */
+
+const cursos = {"ETEC_AGRO":"Agronegócios",
     "ETEC_COGRA":"Computação Gráfica",
     "ETEC_CCONT":"Contabilidade",
     "ETEC_COOP":"Cooperativismo",
@@ -106,31 +111,30 @@ const cursos = {
     "ETEC_RH":"Recursos Humanos",
     "ETEC_SECES":"Secretaria Escolar",
     "ETEC_SEGUR":"Segurança do Trabalho",
-    "ETEC_SEJUR":"Serviços Jurídicos"
-};
+    "ETEC_SEJUR":"Serviços Jurídicos"};
 
-/* ===== BUSCA EXATA APÓS "_" ===== */
+
+
+/* ===== BUSCA SOMENTE POR CÓDIGO COMPLETO ===== */
+
 const input = document.getElementById("busca");
 const resultado = document.getElementById("resultado");
 
 input.addEventListener("input", function () {
-    const valor = this.value.toUpperCase().trim();
+
+    const valor = this.value.trim().toUpperCase();
     resultado.textContent = "";
 
     if (valor === "") return;
 
-    for (const codigo in cursos) {
-        const parteDepoisUnderline = codigo.split("_")[1];
-
-        if (parteDepoisUnderline === valor) {
-            resultado.textContent = cursos[codigo];
-            return;
-        }
+    // 🔒 Só retorna se o código for exatamente igual
+    if (cursos.hasOwnProperty(valor)) {
+        resultado.textContent = cursos[valor];
     }
+
 });
 
 </script>
 
 </body>
 </html>
-
